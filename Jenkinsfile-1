@@ -1,6 +1,6 @@
 pipeline {
 
-   parameters {
+  parameters {
     choice(name: 'action', choices: 'create\ndestroy', description: 'Create/update or destroy the eks cluster.')
     string(name: 'cluster', defaultValue : 'demo', description: "EKS cluster name;eg demo creates cluster named eks-demo.")
     string(name: 'credential', defaultValue : 'jenkins', description: "Jenkins credential that provides the AWS access key and secret.")
@@ -12,6 +12,10 @@ pipeline {
     timeout(time: 1, unit: 'HOURS')
     // withAWS(credentials: 'IDofAwsCredentials', region: params.region)
     // ansiColor('xterm')
+  }
+
+  environment {
+  PATH = "${PATH}:${getTerraformPath()}"
   }
 
   agent { label 'master' }
@@ -101,7 +105,10 @@ pipeline {
         }
       }
     }
-
   }
+}
 
+def getTerraformPath(){
+  def tfHome = tool name: 'terraform', type: 'terraform'
+  return tfHome
 }
