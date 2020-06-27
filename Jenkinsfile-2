@@ -12,7 +12,7 @@ pipeline {
 				expression { params.action == 'create' }
 			}
 			steps {
-				withAWS(region:'eu-west-2',credentials:'awscreds') {
+				withAWS(region:'eu-west-2',credentials:'e6e73424-2f2b-4da0-a1b5-c594f095cc54') {
 					sh "terraform init"
 				}
 			}
@@ -22,7 +22,7 @@ pipeline {
 				expression { params.action == "create" }
 			}
 			steps {
-				withAWS(region:'eu-west-2',credentials:'awscreds') {
+				withAWS(region:'eu-west-2',credentials:'e6e73424-2f2b-4da0-a1b5-c594f095cc54') {
 					sh "terraform plan"
 				}
 			}
@@ -32,7 +32,7 @@ pipeline {
 				expression { params.action == 'create' }
 			}
 			steps {
-				withAWS(region:'eu-west-2',credentials:'awscreds') {
+				withAWS(region:'eu-west-2',credentials:'e6e73424-2f2b-4da0-a1b5-c594f095cc54') {
 					sh "terraform apply -auto-approve"
 				}
 			}
@@ -42,7 +42,7 @@ pipeline {
 				expression { params.action == 'destroy' }
 			}
 			steps {
-				withAWS(region:'eu-west-2',credentials:'awscreds') {
+				withAWS(region:'eu-west-2',credentials:'e6e73424-2f2b-4da0-a1b5-c594f095cc54') {
 					sh "terraform destroy -auto-approve"
 				}
 			}
