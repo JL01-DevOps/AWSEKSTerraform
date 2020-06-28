@@ -12,7 +12,7 @@ pipeline {
 				expression { params.action == 'create' }
 			}
 			steps {
-				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'myawscreds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'my-aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 					sh "terraform init"
 				}
 			}
@@ -22,7 +22,7 @@ pipeline {
 				expression { params.action == "create" }
 			}
 			steps {
-				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'myawscreds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'my-aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 					sh "terraform plan"
 				}
 			}
@@ -32,7 +32,7 @@ pipeline {
 				expression { params.action == 'create' }
 			}
 			steps {
-				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'myawscreds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'my-aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 					sh "terraform apply -auto-approve"
 				}
 			}
@@ -42,7 +42,7 @@ pipeline {
 				expression { params.action == 'destroy' }
 			}
 			steps {
-				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'myawscreds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'my-aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 					sh "terraform destroy -auto-approve"
 				}
 			}
