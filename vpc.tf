@@ -7,8 +7,7 @@
 #
 
 resource "aws_vpc" "demo" {
-  cidr_block = "10.0.0.0/16"
-
+  cidr_block = var.cidr_block_subnet
   tags = map(
     "Name", "terraform-eks-demo-node",
     "kubernetes.io/cluster/${var.cluster-name}", "shared",
@@ -16,10 +15,9 @@ resource "aws_vpc" "demo" {
 }
 
 resource "aws_subnet" "demo" {
-  count = 2
-
+  count                   = 2
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  cidr_block              = "10.0.${count.index}.0/24"
+  cidr_block              = cidrsubnet(var.cidr_block_subnet, 8, count.index) //  "10.0.${count.index}.0/24"
   map_public_ip_on_launch = true
   vpc_id                  = aws_vpc.demo.id
 
@@ -47,8 +45,7 @@ resource "aws_route_table" "demo" {
 }
 
 resource "aws_route_table_association" "demo" {
-  count = 2
-
+  count          = 2
   subnet_id      = aws_subnet.demo.*.id[count.index]
   route_table_id = aws_route_table.demo.id
 }

@@ -24,4 +24,41 @@ chmod 700 get_helm.sh
 
 ./get_helm.sh
 
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+
+# HOW TO INSTALL LOKI-GRAFANA STACK USING HELM3 ON EKS
+# helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+# helm repo add loki https://grafana.github.io/loki/charts
+# helm repo update
+# kubectl create namespace loki-stack
+# helm upgrade --install loki --namespace=loki-stack loki/loki-stack
+# helm upgrade --install grafana --namespace=loki-stack stable/grafana
+# kubectl edit svc -n loki-stack grafana ; CHANGE ClusterIP to NodePort
+# ADD IN THE SECURITY GROUP OF WORKED NODES THE PORT OF THIS NodePort
+# OBTAIN THE GRAFANA PASSWD FROM THE CMD BELOW. THE USERNAME IS ALWAYS admin.
+# kubectl get secret --namespace <YOUR-NAMESPACE> loki-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+# kubectl get secret --namespace loki-stack grafana -o jsonpath="{.data.admin-password}" | base64 --decode
+# GO TO ADD DATA FROM GRAFANA'S UI AND ADD LOKI:
+# http://loki:3100
+# THEN GO TO EXPLORE AND CHOOSE YOUR METRICS!
+# ADD PROMETHEUS:
+# helm install prometheus stable/prometheus -n loki-stack
+# kubectl get svc -n loki-stack ; AND FIND THE prometheus-server internal IP
+# THEN FROM GRAFANA UI, ADD AGAIN A NEW DATASOURCE, CHOOSE PROMETHEUS AND PASTER http://<prometheus-server-ip>
+# CLICK SAVE AND TEST
+# TO INSTALL ELK_STACK 
+# helm install elk stable/elastic-stack
+# THE ABOVE HELM CHART THROWS AN ERROR BETWEEN LOGSTASH AND ES SERVER, THE FOLLOWING IS WORKING OK
+# helm repo add gitlab https://charts.gitlab.io/
+# helm install elk gitlab/elastic-stack --version 3.0.0
+# THOOUGH IT'S USING FILEBEAT INSTEAD LOGSTASH
+
+
+
+
+
+
+
+
+
+
+

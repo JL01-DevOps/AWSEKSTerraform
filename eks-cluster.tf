@@ -1,36 +1,22 @@
 #
-# EKS Cluster Resources
+#  EKS Cluster Resources
 #  * IAM Role to allow EKS service to manage other AWS services
 #  * EC2 Security Group to allow networking traffic with EKS cluster
 #  * EKS Cluster
 #
 
 resource "aws_iam_role" "demo-cluster" {
-  name = "terraform-eks-demo-cluster"
-
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
+  name               = "terraform-eks-demo-cluster"
+  assume_role_policy = file("scripts/cluster-assume-role-policy.yaml")
 }
 
 resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSClusterPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  policy_arn = var.policy-AmazonEKSClusterPolicy
   role       = aws_iam_role.demo-cluster.name
 }
 
 resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSServicePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+  policy_arn = var.policy-AmazonEKSServicePolicy
   role       = aws_iam_role.demo-cluster.name
 }
 
