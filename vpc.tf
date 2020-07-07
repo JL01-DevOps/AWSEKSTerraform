@@ -7,7 +7,7 @@
 #
 
 resource "aws_vpc" "demo" {
-  cidr_block = var.cidr_block
+  cidr_block = "10.0.0.0/16"
   tags = map(
     "Name", "terraform-eks-demo-node",
     "kubernetes.io/cluster/${var.cluster-name}", "shared",
