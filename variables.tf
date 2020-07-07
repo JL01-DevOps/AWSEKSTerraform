@@ -10,3 +10,9 @@ variable "cluster-name" {
 variable "cidr_block_subnet" {
   type = string
 }
+
+variable "policy-AmazonEKSClusterPolicy" {
+}
+
+variable "policy-AmazonEKSServicePolicy" {
+}
