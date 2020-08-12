@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "jlongmuir-terraform-remote-state-storage-s3"
+    bucket = "jlongmuir-terraform-remote-state-storage-s3-oregon"
     key    = "terraform-eks.tfstate"
-    region = "eu-west-2"
+    region = "us-west-2"
   }
 }
